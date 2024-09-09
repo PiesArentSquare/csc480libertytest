@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server description="Liberty from scratch">
-    <!-- which features are turned on
-         jakartaee and microProfile are names for entire groups of features, but you can be more granular
-         and only turn on certain compnenets of each, such as mpHealth, mpConfig, etc... -->
     <featureManager>
-        <feature>jakartaee-10.0</feature>
-        <feature>microProfile-6.1</feature>
+        <feature>servlet-6.0</feature>
     </featureManager>
 
-    <!-- the defualt http port is 9080, but apparently that's in use on my pc, so i've changed it to 9081 here -->
-    <httpEndpoint id="defaultHttpEndpoint"
-                  httpPort="9081"
-                  httpsPort="9443" />
+    <variable name="http.port" defaultValue="9080"/>
+    <variable name="https.port" defaultValue="9443"/>
+    <variable name="app.context.root" defaultValue="ServletSample"/>
 
-    <!-- automatically expand WAR files and EAR files -->
-    <applicationManager autoExpand="true"/>
+    <httpEndpoint httpPort="${http.port}" httpsPort="${https.port}" id="defaultHttpEndpoint"  host="*" />
 
-    <!-- the root path to access a given OL webapp
-         the location field matches the <finalName> field in <build> in pom.xml -->
-    <webApplication contextRoot="/" location="testapp.war" />
-
-    <!-- trust the default java certificates for ssl -->
-    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
+    <webApplication id="${app.context.root}" contextRoot="${app.context.root}" location="${app.context.root}.war" />
 </server>
