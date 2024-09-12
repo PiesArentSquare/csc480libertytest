@@ -112,7 +112,7 @@ There are three points of interest in the project file.
         <version>3.3.2</version>
     </plugin>
     ```
-### [server.xml](src/main/liberty/config/server.xml)
+### [server.xml](frontend/src/main/liberty/config/server.xml)
 server.xml is the OpenLiberty server config file. 
 
 * It enables server features (the pom `<scope>provided</scope>` dependencies),
