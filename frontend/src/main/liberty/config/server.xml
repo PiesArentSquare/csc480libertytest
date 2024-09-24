@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server description="Frontend service">
     <featureManager>
-        <feature>jakartaee-10.0</feature>
         <feature>microProfile-6.1</feature>
+        <feature>jakartaee-10.0</feature>
+        <feature>appSecurity-5.0</feature>
+        <feature>jwt-1.0</feature>
+        <feature>socialLogin-1.0</feature>
+        <feature>transportSecurity-1.0</feature>
+        <feature>faces-4.0</feature>
+        <feature>cdi-4.0</feature>
+        <feature>servlet-6.0</feature>
+        <feature>mpJwt-2.1</feature>
     </featureManager>
 
     <variable name="http.port" defaultValue="9090"/>
-    <variable name="https.port" defaultValue="9091"/>
-    <variable name="context.root" defaultValue="frontend"/>
+    <variable name="https.port" defaultValue="9443"/>
+    <variable name="location" defaultValue="frontend"/>
 
     <httpEndpoint httpPort="${http.port}" httpsPort="${https.port}"
-                  id="defaultHttpEndpoint" />
+                  id="defaultHttpEndpoint"
+                  host="*" />
 
-    <webApplication contextRoot="/" location="${context.root}.war" />
+    <ssl id="defaultSSLConfig"
+         keyStoreRef="defaultKeyStore"
+         trustDefaultCerts="true" />
+
+    <githubLogin clientId="${github.client.id}"
+                 clientSecret="${github.client.secret}" />
+
+    <webApplication contextRoot="/" location="${location}.war">
+        <application-bnd>
+            <security-role name="users">
+                <special-subject type="ALL_AUTHENTICATED_USERS"/>
+            </security-role>
+        </application-bnd>
+    </webApplication>
 </server>

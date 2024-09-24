@@ -12,21 +12,15 @@ import java.io.IOException;
 import java.io.Serial;
 
 @WebServlet(urlPatterns = "/login")
-@ServletSecurity(value = @HttpConstraint(rolesAllowed = { "user" },
+@ServletSecurity(value = @HttpConstraint(rolesAllowed = { "users" },
         transportGuarantee = ServletSecurity.TransportGuarantee.CONFIDENTIAL))
 public class LoginServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1;
 
-//    @Inject
-//    private SecurityContext securityContext;
-
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.sendRedirect("/taskBoard.html");
+        req.setAttribute("username", req.getUserPrincipal().getName());
+        req.getRequestDispatcher("taskBoard.html").forward(req, res);
     }
-
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        doGet(req, res);
-    }
-
 }

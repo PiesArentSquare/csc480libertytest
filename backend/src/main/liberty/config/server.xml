@@ -7,12 +7,10 @@
 
     <variable name="http.port" defaultValue="8080"/>
     <variable name="https.port" defaultValue="8443"/>
-    <variable name="context.root" defaultValue="backend"/>
+    <variable name="location" defaultValue="backend"/>
 
     <httpEndpoint httpPort="${http.port}" httpsPort="${https.port}"
                   id="defaultHttpEndpoint" />
 
-    <webApplication contextRoot="/api" location="${context.root}.war" />
-
-    <cors domain="/api/tasks" allowedOrigins="https://localhost:9091" allowCredentials="true" allowedMethods="GET" exposeHeaders="MyHeader"/>
+    <webApplication contextRoot="/api" location="${location}.war" />
 </server>

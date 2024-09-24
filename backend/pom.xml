@@ -20,7 +20,7 @@
         <!-- Liberty Properties -->
         <liberty.var.http.port>8080</liberty.var.http.port>
         <liberty.var.https.port>8443</liberty.var.https.port>
-        <liberty.var.context.root>${project.artifactId}</liberty.var.context.root>
+        <liberty.var.location>${project.artifactId}</liberty.var.location>
     </properties>
 
     <dependencies>
