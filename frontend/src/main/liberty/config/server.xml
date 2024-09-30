@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server description="Frontend service">
     <featureManager>
-        <feature>microProfile-6.1</feature>
-        <feature>jakartaee-10.0</feature>
-        <feature>appSecurity-5.0</feature>
-        <feature>jwt-1.0</feature>
-        <feature>socialLogin-1.0</feature>
-        <feature>transportSecurity-1.0</feature>
+        <feature>restfulWS-3.1</feature>
+        <feature>jsonb-3.0</feature>
+        <feature>jsonp-2.1</feature>
         <feature>faces-4.0</feature>
         <feature>cdi-4.0</feature>
+
+        <feature>socialLogin-1.0</feature>
+        <feature>appSecurity-5.0</feature>
         <feature>servlet-6.0</feature>
         <feature>mpJwt-2.1</feature>
+        <feature>jwt-1.0</feature>
+        <feature>mpConfig-3.1</feature>
+        <feature>mpRestClient-3.0</feature>
     </featureManager>
 
     <variable name="http.port" defaultValue="9090"/>
@@ -21,18 +24,20 @@
                   id="defaultHttpEndpoint"
                   host="*" />
 
-    <ssl id="defaultSSLConfig"
-         keyStoreRef="defaultKeyStore"
-         trustDefaultCerts="true" />
+    <keyStore id="defaultKeyStore" password="secret" />
 
     <githubLogin clientId="${github.client.id}"
                  clientSecret="${github.client.secret}" />
 
     <webApplication contextRoot="/" location="${location}.war">
         <application-bnd>
-            <security-role name="users">
+            <security-role name="user">
                 <special-subject type="ALL_AUTHENTICATED_USERS"/>
             </security-role>
         </application-bnd>
     </webApplication>
+
+    <jwtBuilder id="jwtFrontEndBuilder" issuer="http://openliberty.io" expiry="24h"/>
+
+    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
 </server>

@@ -1,7 +1,5 @@
-package rest;
+package client;
 
-import jakarta.annotation.security.RolesAllowed;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.Path;
@@ -10,11 +8,11 @@ import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @RegisterRestClient(baseUri = "https://localhost:8443/api")
-@Path("/tasks")
-@RequestScoped
+@Path("tasks")
 public interface TaskClient extends AutoCloseable {
 
     @GET
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public String getTasks(@HeaderParam("Authorization") String authHeader);
 }
